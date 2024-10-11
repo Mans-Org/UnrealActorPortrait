@@ -1,0 +1,29 @@
+{
+  "FileVersion": 3,
+  "EngineVersion": "5.4",
+  "Version": 6,
+  "VersionName": "2.0.12",
+  "FriendlyName": "Actor Portrait",
+  "Description": "Display any actor as a UI element",
+  "Category": "Other",
+  "CreatedBy": "Mans Isaksson",
+  "CreatedByURL": "http://mansisaksson.com",
+  "DocsURL": "http://mansisaksson.com/view/actor-portrait",
+  "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/d98d22cea2ef47b392de21b23b6347dd",
+  "SupportURL": "http://mansisaksson.com/view/support",
+  "CanContainContent": true,
+  "Modules": [
+    {
+      "Name": "ActorPortrait",
+      "Type": "Runtime",
+      "LoadingPhase": "PreLoadingScreen",
+      "WhitelistPlatforms": [
+        "Win64",
+        "Mac",
+        "Linux",
+        "Android",
+        "IOS"
+      ]
+    }
+  ]
+}
