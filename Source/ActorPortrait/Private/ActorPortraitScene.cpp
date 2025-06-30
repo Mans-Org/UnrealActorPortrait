@@ -12,6 +12,7 @@
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 #include "UObject/Package.h"
+#include "SceneRenderBuilderInterface.h"
 
 FActorPortraitScene::FActorPortraitScene(const TSoftObjectPtr<UWorld> &WorldAsset, UDirectionalLightComponent* DirLightTemplate, USkyLightComponent* SkyLightTemplate, bool bShouldTick, UGameInstance* OwningGameInstance)
 	: FInstanceWorld(FInstanceWorld::ConstructionValues().SetShouldTickWorld(bShouldTick).SetWorldAsset(WorldAsset).SetOwningGameInstance(OwningGameInstance))
@@ -136,7 +137,9 @@ void FActorPortraitScene::UpdateCaptureComponentCaptureContents()
 {
 	if (IsValid(CaptureComponent))
 	{
-		CaptureComponent->UpdateSceneCaptureContents(GetScene());
+		TUniquePtr<ISceneRenderBuilder> SceneRenderBuilder = ISceneRenderBuilder::Create(GetWorld()->Scene);
+		CaptureComponent->UpdateSceneCaptureContents(GetWorld()->Scene, *SceneRenderBuilder);
+		SceneRenderBuilder->Execute();
 	}
 }
 

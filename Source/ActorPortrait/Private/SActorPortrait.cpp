@@ -833,14 +833,14 @@ void SActorPortrait::ResetCamera()
 	OrbitOrigin = FVector::ZeroVector;
 
 	// Clear any debug lines that may have been drawn by enabling CameraSettings.bDrawDebug
-	{
-		if (PortraitWorld->LineBatcher)
-			PortraitWorld->LineBatcher->Flush();
-		if (PortraitWorld->PersistentLineBatcher)
-			PortraitWorld->PersistentLineBatcher->Flush();
-		if (PortraitWorld->ForegroundLineBatcher)
-			PortraitWorld->ForegroundLineBatcher->Flush();
-	}
+	constexpr const UWorld::ELineBatcherType LineBatchersToFlush[] = 
+	{ 
+		UWorld::ELineBatcherType::World,
+		UWorld::ELineBatcherType::WorldPersistent,
+		UWorld::ELineBatcherType::Foreground,
+		UWorld::ELineBatcherType::ForegroundPersistent
+	};
+	PortraitWorld->FlushLineBatchers(LineBatchersToFlush);
 
 	const FTransform& ActorTransform = PortraitActor->GetActorTransform();
 
