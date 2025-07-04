@@ -1,7 +1,6 @@
 // Copyright Mans Isaksson. All Rights Reserved.
 
 #include "ActorPortraitScene.h"
-#include "ActorPortraitCompatibilityLayer.h"
 
 #include "Components/SkyLightComponent.h"
 #include "Components/DirectionalLightComponent.h"
@@ -37,9 +36,6 @@ FActorPortraitScene::FActorPortraitScene(const TSoftObjectPtr<UWorld> &WorldAsse
 	CaptureComponent->CompositeMode                = ESceneCaptureCompositeMode::SCCM_Overwrite;
 	CaptureComponent->CaptureSource                = ESceneCaptureSource::SCS_FinalColorHDR;
 	CaptureComponent->bAlwaysPersistRenderingState = true;
-#if ENGINE_VERSION_HIGHER_THAN(4, 24) && ENGINE_VERSION_LESS_THAN(5, 1)
-	CaptureComponent->bDisableFlipCopyGLES         = true;
-#endif
 	CaptureComponent->bConsiderUnrenderedOpaquePixelAsFullyTranslucent = true;
 	AddComponentToWorld(CaptureComponent);
 
@@ -47,21 +43,13 @@ FActorPortraitScene::FActorPortraitScene(const TSoftObjectPtr<UWorld> &WorldAsse
 	// We therefore use the OnWorldTickStart and OnWorldTickEnd events to override the LatentActionManager and TimerManager during our
 	// portrait scene tick to avoid double-ticking the LatentActionManager and TimerManager.
 	FWorldDelegates::OnWorldTickStart.AddRaw(this, &FActorPortraitScene::OnWorldTickStart);
-#if ENGINE_VERSION_HIGHER_THAN(5, 0)
 	FWorldDelegates::OnWorldTickEnd.AddRaw(this, &FActorPortraitScene::OnWorldTickEnd);
-#else
-	FWorldDelegates::OnWorldPostActorTick.AddRaw(this, &FActorPortraitScene::OnWorldTickEnd);
-#endif
 }
 
 FActorPortraitScene::~FActorPortraitScene()
 {
 	FWorldDelegates::OnWorldTickStart.RemoveAll(this);
-#if ENGINE_VERSION_HIGHER_THAN(5, 0)
 	FWorldDelegates::OnWorldTickEnd.RemoveAll(this);
-#else
-	FWorldDelegates::OnWorldPostActorTick.RemoveAll(this);
-#endif
 }
 
 void FActorPortraitScene::ApplyDirectionalLightTemplate(UDirectionalLightComponent* DirLightTemplate)

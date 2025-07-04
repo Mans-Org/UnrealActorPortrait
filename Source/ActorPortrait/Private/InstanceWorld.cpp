@@ -14,7 +14,6 @@
 #include "UObject/Package.h"
 
 #include "ActorPortraitModule.h"
-#include "ActorPortraitCompatibilityLayer.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogInstanceWorld, Log, All);
 

@@ -5,7 +5,6 @@
 #include "ActorPortraitModule.h"
 #include "ActorPortraitSettings.h"
 #include "ActorPortraitInterface.h"
-#include "ActorPortraitCompatibilityLayer.h"
 
 #include "Components/SkyLightComponent.h"
 #include "Components/DirectionalLightComponent.h"

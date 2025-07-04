@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 #include "ActorPortraitSettings.h"
-#include "ActorPortraitCompatibilityLayer.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Engine/EngineBaseTypes.h"
 #include "Templates/PimplPtr.h"
